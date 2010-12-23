@@ -1,0 +1,127 @@
+# Logfile created on Thu Dec 23 17:33:25 -0600 2010
+
+Processing ActionController::Base#documents (for 127.0.0.1 at 2010-12-23 17:33:31) [GET]
+
+NameError (uninitialized constant ApplicationController):
+  app/controllers/doclist_controller.rb:15
+
+Rendered rescues/_trace (32.7ms)
+Rendered rescues/_request_and_response (1.2ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing DoclistController#documents (for 127.0.0.1 at 2010-12-23 17:34:47) [GET]
+Rendering template within layouts/standard
+Rendering doclist/documents
+Filter chain halted as [:setup_client] rendered_or_redirected.
+Completed in 155ms (View: 145 | 200 OK [http://localhost/]
+
+
+Processing DoclistController#documents (for 127.0.0.1 at 2010-12-23 17:35:19) [GET]
+  Parameters: {"token"=>"1/KiMA74zL3byfZLtClJWRL7FuR027E5a2w6NbuvNHArM"}
+Rendering template within layouts/standard
+Rendering doclist/documents
+Rendered doclist/_documents_list (4.7ms)
+Completed in 2141ms (View: 19 | 200 OK [http://localhost/?token=1%2FKiMA74zL3byfZLtClJWRL7FuR027E5a2w6NbuvNHArM]
+
+
+Processing DoclistController#spreadsheets (for 127.0.0.1 at 2010-12-23 17:35:24) [POST]
+  Parameters: {"authenticity_token"=>"aHtbWteMVqE+Ui11WJ2Pbf+Cg4o854JFu0qg9tg62Ms=", "_"=>""}
+Rendered doclist/_documents_list (6.1ms)
+Completed in 779ms (View: 7 | 200 OK [http://localhost/doclist/spreadsheets]
+
+
+Processing DoclistController#show (for 127.0.0.1 at 2010-12-23 17:35:29) [POST]
+  Parameters: {"url"=>"http://docs.google.com/feeds/default/private/full/spreadsheet:0AvSnSkd5IuwidDl0TTNVUVc1cXkzNUhYUUZSMzZCSVE", "authenticity_token"=>"aHtbWteMVqE+Ui11WJ2Pbf+Cg4o854JFu0qg9tg62Ms=", "_"=>""}
+Rendered doclist/_show (17.0ms)
+Completed in 353ms (View: 22 | 200 OK [http://localhost/doclist/show]
+
+
+Processing DoclistController#show (for 127.0.0.1 at 2010-12-23 17:35:35) [POST]
+  Parameters: {"url"=>"http://docs.google.com/feeds/default/private/full/spreadsheet:0AvSnSkd5IuwidGdtVF85ek9EUlJmU0t2TEZnRDdIMmc", "authenticity_token"=>"aHtbWteMVqE+Ui11WJ2Pbf+Cg4o854JFu0qg9tg62Ms=", "_"=>""}
+Rendered doclist/_show (6.1ms)
+Completed in 363ms (View: 7 | 200 OK [http://localhost/doclist/show]
+
+
+Processing DoclistController#show (for 127.0.0.1 at 2010-12-23 17:35:36) [POST]
+  Parameters: {"url"=>"http://docs.google.com/feeds/default/private/full/spreadsheet:0AvSnSkd5IuwidFhkSDVlWXd1Uy1CclpNNkFnRXBsbmc", "authenticity_token"=>"aHtbWteMVqE+Ui11WJ2Pbf+Cg4o854JFu0qg9tg62Ms=", "_"=>""}
+Rendered doclist/_show (6.3ms)
+Completed in 891ms (View: 8 | 200 OK [http://localhost/doclist/show]
+
+
+Processing DoclistController#show (for 127.0.0.1 at 2010-12-23 17:35:38) [POST]
+  Parameters: {"url"=>"http://docs.google.com/feeds/default/private/full/spreadsheet:0AvSnSkd5IuwidEF4dGpTTkpkNDZESmtwZmVrWUZRMHc", "authenticity_token"=>"aHtbWteMVqE+Ui11WJ2Pbf+Cg4o854JFu0qg9tg62Ms=", "_"=>""}
+Rendered doclist/_show (6.3ms)
+Completed in 267ms (View: 7 | 200 OK [http://localhost/doclist/show]
+
+
+Processing DoclistController#folders (for 127.0.0.1 at 2010-12-23 17:44:02) [POST]
+  Parameters: {"authenticity_token"=>"aHtbWteMVqE+Ui11WJ2Pbf+Cg4o854JFu0qg9tg62Ms=", "_"=>""}
+Rendered doclist/_documents_list (0.3ms)
+Completed in 230ms (View: 2 | 200 OK [http://localhost/doclist/folders]
+
+
+Processing DoclistController#starred (for 127.0.0.1 at 2010-12-23 17:44:08) [POST]
+  Parameters: {"authenticity_token"=>"aHtbWteMVqE+Ui11WJ2Pbf+Cg4o854JFu0qg9tg62Ms=", "_"=>""}
+Rendered doclist/_documents_list (0.4ms)
+Completed in 320ms (View: 2 | 200 OK [http://localhost/doclist/starred]
+
+
+Processing DoclistController#documents (for 127.0.0.1 at 2010-12-23 17:44:12) [POST]
+  Parameters: {"authenticity_token"=>"aHtbWteMVqE+Ui11WJ2Pbf+Cg4o854JFu0qg9tg62Ms=", "_"=>""}
+Rendered doclist/_documents_list (3.4ms)
+Completed in 841ms (View: 4 | 200 OK [http://localhost/]
+
+
+Processing DoclistController#presentations (for 127.0.0.1 at 2010-12-23 17:44:14) [POST]
+  Parameters: {"authenticity_token"=>"aHtbWteMVqE+Ui11WJ2Pbf+Cg4o854JFu0qg9tg62Ms=", "_"=>""}
+Rendered doclist/_documents_list (0.3ms)
+Completed in 295ms (View: 1 | 200 OK [http://localhost/doclist/presentations]
+
+
+Processing DoclistController#spreadsheets (for 127.0.0.1 at 2010-12-23 17:44:17) [POST]
+  Parameters: {"authenticity_token"=>"aHtbWteMVqE+Ui11WJ2Pbf+Cg4o854JFu0qg9tg62Ms=", "_"=>""}
+Rendered doclist/_documents_list (5.7ms)
+Completed in 664ms (View: 7 | 200 OK [http://localhost/doclist/spreadsheets]
+
+
+Processing ContactsController#my_contacts (for 127.0.0.1 at 2010-12-23 17:44:32) [POST]
+  Parameters: {"acl_feedlink"=>"http://docs.google.com/feeds/default/private/expandAcl/spreadsheet:0AvSnSkd5IuwidEF4dGpTTkpkNDZESmtwZmVrWUZRMHc/acl", "authenticity_token"=>"aHtbWteMVqE+Ui11WJ2Pbf+Cg4o854JFu0qg9tg62Ms=", "_"=>""}
+Rendering contacts/all
+Completed in 413ms (View: 63 | 200 OK [http://localhost/contacts/my_contacts]
+
+
+Processing DoclistController#documents (for 127.0.0.1 at 2010-12-23 17:44:53) [POST]
+  Parameters: {"authenticity_token"=>"aHtbWteMVqE+Ui11WJ2Pbf+Cg4o854JFu0qg9tg62Ms=", "_"=>""}
+Rendered doclist/_documents_list (3.7ms)
+Completed in 684ms (View: 5 | 200 OK [http://localhost/]
+
+
+Processing DoclistController#show (for 127.0.0.1 at 2010-12-23 17:44:54) [POST]
+  Parameters: {"url"=>"http://docs.google.com/feeds/default/private/full/document:1gzbC8JC0HWYfTw_6AixO4X316OcqxieZijKTED5UiZs", "authenticity_token"=>"aHtbWteMVqE+Ui11WJ2Pbf+Cg4o854JFu0qg9tg62Ms=", "_"=>""}
+Rendered doclist/_show (5.7ms)
+Completed in 478ms (View: 7 | 200 OK [http://localhost/doclist/show]
+
+
+Processing DoclistController#show (for 127.0.0.1 at 2010-12-23 17:44:57) [POST]
+  Parameters: {"url"=>"http://docs.google.com/feeds/default/private/full/document:0AfSnSkd5IuwiZGc0ZzRrajhfOGc2Y21nOGZ2", "authenticity_token"=>"aHtbWteMVqE+Ui11WJ2Pbf+Cg4o854JFu0qg9tg62Ms=", "_"=>""}
+Rendered doclist/_show (5.8ms)
+Completed in 763ms (View: 7 | 200 OK [http://localhost/doclist/show]
+
+
+Processing DoclistController#presentations (for 127.0.0.1 at 2010-12-23 17:45:00) [POST]
+  Parameters: {"authenticity_token"=>"aHtbWteMVqE+Ui11WJ2Pbf+Cg4o854JFu0qg9tg62Ms=", "_"=>""}
+Rendered doclist/_documents_list (0.3ms)
+Completed in 231ms (View: 1 | 200 OK [http://localhost/doclist/presentations]
+
+
+Processing DoclistController#pdfs (for 127.0.0.1 at 2010-12-23 17:45:01) [POST]
+  Parameters: {"authenticity_token"=>"aHtbWteMVqE+Ui11WJ2Pbf+Cg4o854JFu0qg9tg62Ms=", "_"=>""}
+Rendered doclist/_documents_list (0.3ms)
+Completed in 245ms (View: 1 | 200 OK [http://localhost/doclist/pdfs]
+
+
+Processing DoclistController#spreadsheets (for 127.0.0.1 at 2010-12-23 17:45:04) [POST]
+  Parameters: {"authenticity_token"=>"aHtbWteMVqE+Ui11WJ2Pbf+Cg4o854JFu0qg9tg62Ms=", "_"=>""}
+Rendered doclist/_documents_list (5.8ms)
+Completed in 795ms (View: 7 | 200 OK [http://localhost/doclist/spreadsheets]
