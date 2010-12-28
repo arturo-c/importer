@@ -31,6 +31,7 @@ class ApplicationController < ActionController::Base
   DOCLIST_DOWNLOD_SCOPE = 'http://docs.googleusercontent.com/'
   CONTACTS_SCOPE = 'http://www.google.com/m8/feeds/'
   SPREADSHEETS_SCOPE = 'http://spreadsheets.google.com/feeds/'
+  SPREADSHEETS_SCOPE_SSL = 'https://spreadsheets.google.com/feeds/'
 
   DOCLIST_FEED = DOCLIST_SCOPE + 'default/private/full'
 
@@ -48,8 +49,7 @@ class ApplicationController < ActionController::Base
   private
 
   def setup_client
-    scopes = [DOCLIST_SCOPE, DOCLIST_DOWNLOD_SCOPE,
-              SPREADSHEETS_SCOPE, CONTACTS_SCOPE]
+    scopes = [DOCLIST_SCOPE, SPREADSHEETS_SCOPE, SPREADSHEETS_SCOPE_SSL]
     @client = GData::Client::DocList.new({:authsub_scope => scopes.join(' '),
                                           :source => 'google-DocListManager-v1.1',
                                           :version => '3.0'})

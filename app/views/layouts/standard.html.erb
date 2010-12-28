@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Google DocList Manager</title>
+<title>AllPlayer.com, Inc. Import Manager</title>
 <%= stylesheet_link_tag "style" %>
 <%= javascript_include_tag :defaults %>
 <% javascript_tag do -%>
@@ -50,22 +50,24 @@ document.observe('dom:loaded', function() {
 	<div id="header">
     <% if !session[:token].nil? -%><div style="float:right;"><%= link_to('Logout', :action=> 'logout') %></div><% end -%>
     
-		<h2>DocList Manager</h2>
-		<small>powered by
-		<% api_link_txt = '<span class="google"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span> Data Documents List API' -%>
+		<h2>AllPlayers.com Import Manager</h2>
+		<small><% api_link_txt = '<span class="google"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span> Docs' -%>
     <%= link_to api_link_txt, 'http://code.google.com/apis/documents/', :target => '_new' -%></small>
       
     <div id="navbar">
+      <% if false %><!-- start erb comment -->
       <%= link_to_remote(image_tag("icon_#{ApplicationController::DOCUMENT_DOC_TYPE}.gif") + 'Documents',
         :url => {:action=> "#{ApplicationController::DOCUMENT_DOC_TYPE}s"},
         :update => 'documents_data',
         :loading=> "setDocsListLoadingMsg('documents_data', 'loading word documents...')")
       %>
+      <!-- end erb comment --><% end %>
       <%= link_to_remote(image_tag("icon_#{ApplicationController::SPREADSHEET_DOC_TYPE}.gif") + 'Spreadsheets',
         :url => {:action=> "#{ApplicationController::SPREADSHEET_DOC_TYPE}s"},
         :update => 'documents_data',
         :loading=> "setDocsListLoadingMsg('documents_data', 'loading spreadsheets...')")
       %>
+      <% if false %><!-- start erb comment -->
       <%= link_to_remote(image_tag("icon_#{ApplicationController::PRESO_DOC_TYPE}.gif") + 'Presentations',
         :url => {:action=> "#{ApplicationController::PRESO_DOC_TYPE}s"},
         :update => 'documents_data',
@@ -76,11 +78,13 @@ document.observe('dom:loaded', function() {
         :update => 'documents_data',
         :loading=> "setDocsListLoadingMsg('documents_data', 'loading pdfs...')")
       %>
+      <!-- end erb comment --><% end %>
       <%= link_to_remote(image_tag("icon_#{ApplicationController::FOLDER_DOC_TYPE}.gif", :border => '0') + 'Folders',
         :url => {:action=> "#{ApplicationController::FOLDER_DOC_TYPE}s"},
         :update => 'documents_data',
         :loading=> "setDocsListLoadingMsg('documents_data', 'loading folders...')")
       %>
+      <% if false %><!-- start erb comment -->
       <%= link_to_remote(image_tag("icon_#{ApplicationController::STARRED_LABEL}.png", :border => '0') + 'Starred',
         :url => {:action=> ApplicationController::STARRED_LABEL},
         :update => 'documents_data',
@@ -91,6 +95,7 @@ document.observe('dom:loaded', function() {
         :update => 'documents_data',
         :loading=> "setDocsListLoadingMsg('documents_data', 'loading trashed docs...')")
       %>
+      <!-- end erb comment --><% end %>
     </div>
 	</div>
 

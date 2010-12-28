@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require 'yaml'
+
 class DoclistController < ApplicationController
   layout 'standard'
   before_filter :setup_client, :set_user_email
@@ -24,7 +26,7 @@ class DoclistController < ApplicationController
     begin
       feed = @client.get(url).to_xml
       @documents = create_docs(feed)
-      @doc_type = DOCUMENT_DOC_TYPE
+      @doc_type = SPREADSHEET_DOC_TYPE
     rescue GData::Client::AuthorizationError
       logout
     end
@@ -38,53 +40,78 @@ class DoclistController < ApplicationController
 
   def documents
     @doc_type = DOCUMENT_DOC_TYPE
-    get_documents_for(:category => [@doc_type, MINE_LABEL])
+    get_documents_for(:category => [@doc_type])
   end
 
   def spreadsheets
     @doc_type = SPREADSHEET_DOC_TYPE
-    get_documents_for(:category => [@doc_type, MINE_LABEL])
+    get_documents_for(:category => [@doc_type])
   end
 
   def presentations
     @doc_type = PRESO_DOC_TYPE
-    get_documents_for(:category => [@doc_type, MINE_LABEL])
+    get_documents_for(:category => [@doc_type])
   end
 
   def pdfs
     @doc_type = PDF_DOC_TYPE
-    get_documents_for(:category => [@doc_type, MINE_LABEL])
+    get_documents_for(:category => [@doc_type])
   end
 
   def folders
     @doc_type = FOLDER_DOC_TYPE
-    get_documents_for(:category => [@doc_type, MINE_LABEL],
+    get_documents_for(:category => [@doc_type],
                       :params=>'showfolders=true')
   end
 
   def starred
     @doc_type = DOCUMENT_DOC_TYPE
-    get_documents_for(:category => [STARRED_LABEL, MINE_LABEL],
+    get_documents_for(:category => [STARRED_LABEL],
                       :params=>'showfolders=true')
   end
 
   def trashed
     @doc_type = DOCUMENT_DOC_TYPE
-    get_documents_for(:category => [TRASHED_LABEL, MINE_LABEL],
+    get_documents_for(:category => [TRASHED_LABEL],
                       :params=>'showfolders=true')
   end
 
   def show
+    # TODO - It would be nice to cache something here some we don't fetch three
+    # feeds for one page load.
+    #
     # expandAcl projection will inline the ACLs in the resulting feed
     url = params[:url].sub(/\/full/, '/expandAcl')
 
-    entry = @client.get(url).to_xml
-    @document = create_doc(entry)
+    doc_feed = @client.get(url).to_xml
+    @document = create_doc(doc_feed)
     if @document.type == DOCUMENT_DOC_TYPE or @document.type == PRESO_DOC_TYPE
       export_url = @document.links['export'] + '&exportFormat=png'
       # Src value for an image containing a data URI
       @preview_img = Base64.encode64(download(export_url))
     end
+
+    # TODO - Parse worksheets, move this to separate function.
+    @worksheets = []
+    if @document.links.has_key?('http://schemas.google.com/spreadsheets/2006#worksheetsfeed')
+      uri = @document.links['http://schemas.google.com/spreadsheets/2006#worksheetsfeed']
+      ws_feed = @client.get(uri).to_xml
+      # Select each entry with a title.
+      ws_feed.elements.each('entry/title/..') do |entry|
+        worksheet = {:title => entry.elements['title'].text}
+        worksheet[:cells_uri] = entry.elements["link[@rel='http://schemas.google.com/spreadsheets/2006#cellsfeed')]"].attributes['href']
+        puts worksheet.to_yaml
+        @worksheets.push(worksheet) if !entry.nil?
+      end
+    end
+
+    # TODO - Grab specific worksheet, move to separate function.
+    if params.has_key?(:worksheet)
+      @worksheet_uri = params[:worksheet]
+    else
+      @worksheet_uri = ''
+    end
+
     render :partial => 'show'
   end
 
@@ -217,6 +244,7 @@ private
       logout
     end
 
+    #XMLHttpRequest
     unless request.xhr?
       render :action => 'documents'
     else

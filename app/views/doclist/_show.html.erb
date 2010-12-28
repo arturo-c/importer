@@ -1,17 +1,7 @@
 <table style="width:100%;" cellpadding="5" cellspacing="10">
 <tr>
   <td colspan="2"><h3><%= image_tag("icon_#{@document.type}.gif") %> <%= @document.title %></h3></td>
-</tr>
-<tr>
-  <td style="vertical-align:top;">
-    <% if @preview_img.nil? -%>
-      <%= image_tag('no_preview.png', :class => 'thumb', :title => 'No Preview', :alt => 'No Preview')%>
-    <% else -%>
-      <img src="data:image/png;base64,<%= @preview_img %>" class="thumb" title="Document Preview" alt="Document Preview">
-    <% end -%>
-  </td>
-  <td style="width:100%;vertical-align:top;">
-    <span style="float:right;">
+      <span style="float:right;">
       <%= link_to_remote('Refresh',
                          :url => {:action=> 'show'},
                          :with => "'url=#{@document.links['self']}'",
@@ -19,7 +9,27 @@
                          :loading=> "setLoadingMsg('doc_preview', 'loading document info...')")
       %>
     </span>
+</tr>
+<tr>
+  <td colspan="2" class="tabs">
+    <ul id="navlist">
+      <% @worksheets.each do |worksheet| %>
+      <li <%= (@worksheet_uri == worksheet[:cells_uri]) ? 'class="active"' : '' %>>
+
+      <%= link_to_remote(worksheet[:title],
+                             :url => {:action=> 'show'},
+                             :with => "'url=#{@document.links['self']}&worksheet=#{worksheet[:cells_uri]}'",
+                             :update => 'doc_preview',
+                             :loading=> "setLoadingMsg('doc_preview', 'loading worksheet...')")
+      %></li>
+      <% end %>
+    </ul>
+  </td>
+</tr>
+<tr>
+  <td style="width:100%;vertical-align:top;">
     <table>
+    <tr><td><strong>Worksheet</strong>:</td><td><%= @worksheet %></td></tr>
     <tr><td><strong>Resource id</strong>:</td><td><%= "#{@document.type}:#{@document.doc_id}"%></td></tr>
     <tr><td><strong>Author</strong>:</td><td><%= @document.author %></td></tr>
     <tr><td><strong>Last viewed </strong>:</td><td><%= @document.last_viewed.strftime('%Y-%m-%d %H:%M:%S') %></td></tr>
