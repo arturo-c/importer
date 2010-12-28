@@ -215,3 +215,34 @@ padding: 4px;
 }
 
 #navlist a:hover { background: #fff; }
+
+div.scrollWrapper{
+  overflow:scroll;
+  height:300px;
+  width: 800px;
+}
+table.scrollable{
+  margin-right:0 !important;
+  margin-right:16px;
+  border-collapse:separate;
+}
+table.scrollable th{
+  border-top:1px solid #999999;
+  border-left:1px solid #999999;
+border-bottom:1px solid #999999;
+  padding:5px;
+  background:#f7f7f7;
+  position: relative;
+}
+table.scrollable tbody{
+  height:150px;
+  overflow:auto;
+}
+table.scrollable tr{
+  height:0px;
+}
+table.scrollable td{
+  border-left:1px solid #999999;
+  border-bottom:1px solid #999999;
+  text-align:center;
+}

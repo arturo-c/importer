@@ -29,25 +29,30 @@
 <% unless @worksheet.nil? %>
 <tr>
   <td>
-    <table>
-      <tr>
-      <% @worksheet.shift # Discard row 1 %>
-        <th>Row</th>
-      <% @worksheet.shift.each do | header | %>
-        <th><%= header %></th>
-      <% end %>
-      </tr>
-      <% row_num = 3 %>
-      <% @worksheet.each do | row | %>
-      <tr>
-        <td><%= row_num.to_s %></td>
-        <% row_num += 1 %>
-        <% row.each do | col | %>
-        <td><%= col.to_s %></td>
+    <div class="scrollWrapper">
+      <table class="scrollable">
+        <tr>
+          <th>Row</th>
+        <% @worksheet.shift # Discard row 1 %>
+        <% cols = @worksheet[0].length + 1 %>
+        <% @worksheet.shift.each do | header | %>
+          <th><%= header.to_s.split("\n")[0] %></th>
         <% end %>
-      </tr>
-      <% end %>
-    </table>
+        </tr>
+        <% row_num = 3 %>
+        <% @worksheet.each do | row | %>
+        <tr>
+          <td><%= row_num.to_s %></td>
+          <% row_num += 1 %>
+          <% current_col = 0 %>
+          <% while (current_col < cols) do %>
+          <td><%= (row[current_col].nil?) ? '' : row[current_col].to_s %></td>
+            <% current_col += 1 %>
+          <% end %>
+        </tr>
+        <% end %>
+      </table>
+    </div>
   </td>
 </tr>
 <% end %>
