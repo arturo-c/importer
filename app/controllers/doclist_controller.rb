@@ -108,6 +108,18 @@ class DoclistController < ApplicationController
     # TODO - Grab specific worksheet, move to separate function.
     if params.has_key?(:worksheet)
       @worksheet_uri = params[:worksheet]
+      @worksheet = []
+      cellsFeed = @client.get(@worksheet_uri)
+      #puts cellsFeed.body
+      cells = cellsFeed.to_xml
+      cells.elements.each('entry/gs:cell') do | cell |
+        row = cell.attributes['row'].to_i - 1
+        col = cell.attributes['col'].to_i - 1
+        if @worksheet[row].nil?
+          @worksheet[row] = []
+        end
+        @worksheet[row][col] = cell.text
+      end
     else
       @worksheet_uri = ''
     end

@@ -14,7 +14,7 @@
   <td colspan="2" class="tabs">
     <ul id="navlist">
       <% @worksheets.each do |worksheet| %>
-      <li <%= (@worksheet_uri == worksheet[:cells_uri]) ? 'class="active"' : '' %>>
+      <li<%= (@worksheet_uri == worksheet[:cells_uri]) ? ' class="active"' : '' %>>
 
       <%= link_to_remote(worksheet[:title],
                              :url => {:action=> 'show'},
@@ -26,10 +26,34 @@
     </ul>
   </td>
 </tr>
+<% unless @worksheet.nil? %>
+<tr>
+  <td>
+    <table>
+      <tr>
+      <% @worksheet.shift # Discard row 1 %>
+        <th>Row</th>
+      <% @worksheet.shift.each do | header | %>
+        <th><%= header %></th>
+      <% end %>
+      </tr>
+      <% row_num = 3 %>
+      <% @worksheet.each do | row | %>
+      <tr>
+        <td><%= row_num.to_s %></td>
+        <% row_num += 1 %>
+        <% row.each do | col | %>
+        <td><%= col.to_s %></td>
+        <% end %>
+      </tr>
+      <% end %>
+    </table>
+  </td>
+</tr>
+<% end %>
 <tr>
   <td style="width:100%;vertical-align:top;">
     <table>
-    <tr><td><strong>Worksheet</strong>:</td><td><%= @worksheet %></td></tr>
     <tr><td><strong>Resource id</strong>:</td><td><%= "#{@document.type}:#{@document.doc_id}"%></td></tr>
     <tr><td><strong>Author</strong>:</td><td><%= @document.author %></td></tr>
     <tr><td><strong>Last viewed </strong>:</td><td><%= @document.last_viewed.strftime('%Y-%m-%d %H:%M:%S') %></td></tr>
