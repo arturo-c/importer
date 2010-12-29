@@ -1,44 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>AllPlayers.com, Inc. Import Manager</title>
-<%= stylesheet_link_tag "style" %>
-<%= javascript_include_tag :defaults %>
-<% javascript_tag do -%>
-function setDocsListLoadingMsg(id, msg) {
-  $(id).getElementsByClassName('list')[0].update('<div class="loading"><img src="/images/ajax-loader.gif"> ' + msg + '</div>');
-}
-function setLoadingMsg(id, msg) {
-  $(id).update('<div class="loading"><img src="/images/ajax-loader.gif"> ' + msg + '</div>');
-}
-
-document.observe('dom:loaded', function() {
-  if ($('documents_data')) {
-    $('documents_data').observe('click', function(event) {
-      var el = event.element();
-      if (el.tagName == 'LI') {
-        el.up().childElements().each(function(item) {
-          item.removeClassName('selected');
-        });
-        el.toggleClassName('selected');
-      }
-    });
-  }
-  
-  if ($('doc_preview')) {
-    $('doc_preview').observe('click', function(event) {
-      var el = event.element();
-      if (el.tagName == 'LI' && el.up('#contacts')) {
-        el.toggleClassName('selected');
-        checkbox = el.childElements("input[type='checkbox']")[0];
-        checkbox.checked = checkbox.checked ? false : true;
-      } else if (el.tagName == 'INPUT' && el.type == 'checkbox') {
-        el.up().toggleClassName('selected');
-      }
-    });
-  }
-});
-<% end -%>
+  <title>AllPlayers.com, Inc. Import Manager</title>
+  <%= stylesheet_link_tag "style" %>
+  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag 'doclist' %>
 </head>
 <body>
 
@@ -48,11 +14,15 @@ document.observe('dom:loaded', function() {
 
 <div id="container">
 	<div id="header">
-    <% if !session[:token].nil? -%><div style="float:right;"><%= link_to('Logout', :action=> 'logout') %></div><% end -%>
+    <% if !session[:token].nil? -%><div style="float:right;">
+      <div style="float:left"><h1><%= session[:apci_session] %></h1></div>
+      <div><small><% api_link_txt = '<span class="google"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span> Docs' -%>
+    <%= link_to api_link_txt, 'http://code.google.com/apis/documents/', :target => '_new' -%></small></div>
+      <div><%= link_to('Logout', :action=> 'logout') %></div>
+      </div>
+    <% end -%>
     
 		<h2>AllPlayers.com Import Manager</h2>
-		<small><% api_link_txt = '<span class="google"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span> Docs' -%>
-    <%= link_to api_link_txt, 'http://code.google.com/apis/documents/', :target => '_new' -%></small>
       
     <div id="navbar">
       <% if false %><!-- start erb comment -->
