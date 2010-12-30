@@ -246,3 +246,7 @@ table.scrollable td{
   border-bottom:1px solid #999999;
   text-align:center;
 }
+
+div.connections { float: right;}
+div.connections > div {padding: 0 10px; float: left; border-left: solid black 1px;}
+div.connections > div:first-child {border-left: none;}

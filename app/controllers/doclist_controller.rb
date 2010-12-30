@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require 'apci_controller'
 require 'yaml'
 
 class DoclistController < ApplicationController
@@ -20,7 +21,7 @@ class DoclistController < ApplicationController
 
   def all
     url = params[:url] ? params[:url] + "/-/#{MINE_LABEL}" :
-                         DOCLIST_FEED + "/-/#{MINE_LABEL}/#{DOCUMENT_DOC_TYPE}"
+                         DOCLIST_FEED + "/-/#{SPREADSHEET_DOC_TYPE}"
     url += '?showfolders=true'
 
     begin
@@ -39,7 +40,8 @@ class DoclistController < ApplicationController
   end
 
   def documents
-    @doc_type = DOCUMENT_DOC_TYPE
+    #@doc_type = DOCUMENT_DOC_TYPE
+    @doc_type = SPREADSHEET_DOC_TYPE
     get_documents_for(:category => [@doc_type])
   end
 
@@ -108,18 +110,8 @@ class DoclistController < ApplicationController
     # TODO - Grab specific worksheet, move to separate function.
     if params.has_key?(:worksheet)
       @worksheet_uri = params[:worksheet]
-      @worksheet = []
-      cellsFeed = @client.get(@worksheet_uri)
-      #puts cellsFeed.body
-      cells = cellsFeed.to_xml
-      cells.elements.each('entry/gs:cell') do | cell |
-        row = cell.attributes['row'].to_i - 1
-        col = cell.attributes['col'].to_i - 1
-        if @worksheet[row].nil?
-          @worksheet[row] = []
-        end
-        @worksheet[row][col] = cell.text
-      end
+      cells = @client.get(@worksheet_uri).to_xml
+      @worksheet = worksheet_feed_to_a(cells)
     else
       @worksheet_uri = ''
     end
@@ -262,6 +254,18 @@ private
     else
       render :partial => 'documents_list'
     end
+  end
+
+  # Traverse worksheet xml feed looking for cells and save them into a 2d array.
+  def worksheet_feed_to_a(xml)
+    worksheet = []
+    xml.elements.each('entry/gs:cell') do | cell |
+      row = cell.attributes['row'].to_i - 1
+      col = cell.attributes['col'].to_i - 1
+      worksheet[row] = [] if worksheet[row].nil?
+      worksheet[row][col] = cell.text
+    end
+    worksheet
   end
 
 end

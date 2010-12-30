@@ -1,0 +1,19 @@
+<h1>AllPlayers.com Server Login</h1>
+<% unless @message.nil? %>
+<div><em><%= @message %></em></div>
+<% end %>
+<% unless @status.nil? %>
+<div><%= @status %></div>
+<% end %>
+<% unless session[:apci_session_start].nil? %>
+<div>Started <%= distance_of_time_in_words(session[:apci_session_start], Time.now).to_s %> ago</div>
+<% end %>
+
+<% form_tag(:controller => 'apci', :action => 'login') do %>
+  <%= label_tag(:user, "User:") %>
+  <%= text_field_tag(:user) %>
+  <%= label_tag(:pass, "Password:") %>
+  <%= password_field_tag(:pass) %>
+  <%= submit_tag 'Login', :disabled => !session[:apci_session].nil? %>
+<% end %>
+<%= button_to 'Logout', :action => 'logout', :disabled => session[:apci_session].nil? %>
