@@ -21,7 +21,11 @@
       <div>
         <small>AllPlayers.com</small>
         <% apci_status = (session[:apci_session].nil?) ? 'Disconnected' : 'Connected' %>
-        <div><%= link_to(apci_status , {:action => 'index', :controller => 'apci'})%></div><!-- session[:apci_session] -->
+        <div><%= link_to_remote(apci_status,
+                                :url => {:action=> 'index', :controller => 'apci'},
+                                :update => 'doc_preview',
+                                :loading=> "setDocsListLoadingMsg('doc_preview', 'Checking AllPlayers.com connection...')")
+      %></div><!-- session[:apci_session] -->
       </div>
       <div>
         <small><% api_link_txt = '<span class="google"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span> Docs' -%>
