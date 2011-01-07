@@ -119,6 +119,14 @@ class DoclistController < ApplicationController
     render :partial => 'show'
   end
 
+  def import
+    if params.has_key?(:worksheet)
+      #MiddleMan.worker(:imports_worker).async_import_worksheet(:arg => 'cheese')
+      MiddleMan.worker(:imports_worker).enq_some_task(:arg => "persisting job",:job_key => "hgfhjh")
+    end
+    render :partial => 'import'
+  end
+
   def download(export_url=nil)
     export_url ||= params[:export_url]
 

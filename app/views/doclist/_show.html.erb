@@ -30,6 +30,14 @@
 <tr>
   <td>
     <div class="scrollWrapper">
+      <%= submit_to_remote('import',
+                           'Start Import',
+                           :url => { :action => 'import' },
+                           :disabled => session[:apci_session].nil?,
+                           :with => "'url=#{@document.links['self']}&worksheet=#{@worksheet_uri}'",
+                           :update => 'doc_preview',
+                           :loading=> "setLoadingMsg('doc_preview', 'preparing to import...')")
+      %>
       <table class="scrollable">
         <tr>
           <th>Row</th>
