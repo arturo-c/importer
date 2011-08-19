@@ -14,6 +14,7 @@
 
 require 'apci_controller'
 require 'yaml'
+require 'gdoc_to_apci'
 
 class DoclistController < ApplicationController
   layout 'standard'
@@ -122,9 +123,52 @@ class DoclistController < ApplicationController
   def import
     if params.has_key?(:worksheet)
       #MiddleMan.worker(:imports_worker).async_import_worksheet(:arg => 'cheese')
-      MiddleMan.worker(:imports_worker).enq_some_task(:arg => "persisting job",:job_key => "hgfhjh")
+      #MiddleMan.worker(:imports_worker).enq_some_task(:arg => "persisting job",:job_key => "hgfhjh")
+      logger_level = nil
+      @sheet = params[:stitle]
+      @wsheet = params[:wtitle]
+      @worksheet_uri = params[:worksheet]
+      @apci_session = session[:apci_session]
+      path = Dir.pwd + '/import_logs'
+      begin
+        FileUtils.mkdir(path)
+      rescue
+        # Do nothing, it's already there?  Perhaps you should catch a more specific
+        # message.
+      ensure
+        log_suffix = @sheet + ' ' + Time.now.strftime("%Y-%m-%d_%H_%M")
+        #
+        rest_logger = Logger.new(path + '/rest_' + log_suffix + '.log')
+        rest_logger.formatter = Logger::Formatter.new
+        rest_logger.level = Logger::DEBUG
+        logdev = ApciLogDevice.new(path + '/import_' + log_suffix + '.csv',
+          :shift_age => 0, :shift_size => 1048576)
+        logger = Logger.new(logdev)
+        logger.formatter = ApciFormatter.new
+        logger.level = logger_level.nil? ? Logger::DEBUG : logger_level
+      end
+      entry3 = <<-EOF
+            <entry xmlns="http://www.w3.org/2005/Atom"
+            xmlns:gs="http://schemas.google.com/spreadsheets/2006">
+              <gs:rowCount>50</gs:rowCount>
+              <gs:colCount>5</gs:colCount>
+            EOF
+      entry3 = entry3 + '<title>test import_' + Time.now.strftime("%Y-%m-%d %H:%M") + '</title></entry>'
+      #resp2 = @client.post(params[:sheeturi], entry3)
+      # End Logging.
+      @apci_session.log(rest_logger)
+
+      # Extend our API class with import and interactive actions.
+      @apci_session.extend ImportActions
+      @apci_session.logger = logger
+      cells_xml = @client.get(@worksheet_uri).to_xml
+      worksheet = worksheet_feed_to_a(cells_xml)
+      @apci_session.import_sheet(worksheet, @wsheet)
+      #@apci_session.logout
+      rest_logger.close
+      logger.close
     end
-    render :partial => 'import'
+    render :action => :index
   end
 
   def download(export_url=nil)
@@ -141,6 +185,10 @@ class DoclistController < ApplicationController
     else
       return resp.body
     end
+  end
+  
+  def download_log()
+    send_file "#{RAILS_ROOT}/import_logs/" + params[:logfile], :filename => params[:logfile], :type=>"application/csv"
   end
 
   def set_acls
