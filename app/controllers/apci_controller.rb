@@ -21,7 +21,7 @@ class ApciController < ApplicationController
 
   def login
     unless params[:user].nil? or params[:pass].nil?
-      sess = ApcirClient.new(nil, 'vbox.allplayers.com')
+      sess = ApcirClient.new(nil, params[:env])
       login_response = sess.login(params[:user], params[:pass])
       @message = 'Connected as ' + login_response['user']['name']
       @status = 'Logged in : Ready'

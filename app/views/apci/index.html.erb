@@ -11,6 +11,8 @@
 
 <% if session[:apci_session].nil? -%>
   <% form_remote_tag(:update => 'doc_preview', :url => {:controller => 'apci', :action => 'login'}) do %>
+    <%= label_tag(:env, "Environment:") %>
+    <%= select_tag :env, options_for_select(["Imports.allplayers.com", "imports.allplayers.com"]), {:multiple => false} %>
     <%= label_tag(:user, "User:") %>
     <%= text_field_tag(:user) %>
     <%= label_tag(:pass, "Password:") %>
