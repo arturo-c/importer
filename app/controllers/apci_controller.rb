@@ -16,7 +16,7 @@ class ApciController < ApplicationController
         @status = 'Logged in : Error'
       end
     end
-    render :partial => 'apci_connection'
+    render :action => :index
   end
 
   def login
