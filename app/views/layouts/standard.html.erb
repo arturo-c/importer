@@ -33,6 +33,7 @@
         <div><%= link_to('Logout', :action=> 'logout') %></div>
         </div>
       </div>
+    <div><%= link_to_remote('Hudson Prod To Imports', :url => {:action=> 'hudson', :controller => 'doclist'}, :update => 'doc_preview') %>  </div>
     <% end -%>
     
 		<h2>AllPlayers.com Import Manager</h2>
