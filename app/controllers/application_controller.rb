@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password").
   # filter_parameter_logging :password
 
-  DOCLIST_SCOPE = 'http://docs.google.com/feeds/'
+  DOCLIST_SCOPE = 'https://docs.google.com/feeds/'
   DOCLIST_DOWNLOD_SCOPE = 'http://docs.googleusercontent.com/'
   CONTACTS_SCOPE = 'http://www.google.com/m8/feeds/'
   SPREADSHEETS_SCOPE = 'http://spreadsheets.google.com/feeds/'
