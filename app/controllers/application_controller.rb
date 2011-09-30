@@ -28,9 +28,9 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
 
   DOCLIST_SCOPE = 'https://docs.google.com/feeds/'
-  DOCLIST_DOWNLOD_SCOPE = 'http://docs.googleusercontent.com/'
-  CONTACTS_SCOPE = 'http://www.google.com/m8/feeds/'
-  SPREADSHEETS_SCOPE = 'http://spreadsheets.google.com/feeds/'
+  DOCLIST_DOWNLOD_SCOPE = 'https://docs.googleusercontent.com/'
+  CONTACTS_SCOPE = 'https://www.google.com/m8/feeds/'
+  SPREADSHEETS_SCOPE = 'https://spreadsheets.google.com/feeds/'
   SPREADSHEETS_SCOPE_SSL = 'https://spreadsheets.google.com/feeds/'
 
   DOCLIST_FEED = DOCLIST_SCOPE + 'default/private/full'
