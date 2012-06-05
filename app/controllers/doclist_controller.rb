@@ -164,11 +164,12 @@ class DoclistController < ApplicationController
       cells_xml = @client.get(@worksheet_uri).to_xml
       worksheet = worksheet_feed_to_a(cells_xml)
       @apci_session.import_sheet(worksheet, @wsheet)
-      #@apci_session.logout
+      @apci_session.logger = nil
+      @apci_session.log(nil)
       rest_logger.close
       logger.close
     end
-    render :action => :index
+    show
   end
 
   def download(export_url=nil)

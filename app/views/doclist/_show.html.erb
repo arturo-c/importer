@@ -41,7 +41,7 @@
                            :with => "'url=#{@document.links['self']}&worksheet=#{@worksheet_uri}&stitle=#{@document.title}&wtitle=#{@wtitle}&sheeturi=#{@sheeturi}'",
                            :update => 'doc_preview',
                            :html => { :disabled => session[:apci_session].nil? },
-                           :loading=> "setLoadingMsg('doc_preview', 'preparing to import...')")
+                           :loading=> "setLoadingMsg('doc_preview', 'processing import...')")
       %>
       <table class="scrollable">
         <tr>
