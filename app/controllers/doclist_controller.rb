@@ -111,8 +111,6 @@ class DoclistController < ApplicationController
     # TODO - Grab specific worksheet, move to separate function.
     if params.has_key?(:worksheet)
       @worksheet_uri = params[:worksheet]
-      cells = @client.get(@worksheet_uri).to_xml
-      @worksheet = worksheet_feed_to_a(cells)
     else
       @worksheet_uri = ''
     end
