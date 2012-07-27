@@ -1,0 +1,16 @@
+source "http://rubygems.org"
+
+gem "activesupport", "2.3.10"
+gem "activesupport", "2.3.10"
+gem "addressable", "2.2.6"
+gem "ci_reporter", "1.7.0"
+gem "highline", "1.6.11"
+gem "gdata", "1.1.2"
+gem "nokogiri", "1.5.5"
+gem "rails", "2.3.10"
+gem "rake", "0.9.2.2"
+gem "rest-client", "1.6.7"
+gem "rspec", "2.9.0"
+gem "sqlite3", "1.3.5"
+gem "xml-simple", "1.1.1"
+
