@@ -1,7 +1,6 @@
 source "http://rubygems.org"
 
 gem "activesupport", "2.3.10"
-gem "activesupport", "2.3.10"
 gem "addressable", "2.2.6"
 gem "ci_reporter", "1.7.0"
 gem "highline", "1.6.11"
