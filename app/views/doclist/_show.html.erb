@@ -34,11 +34,13 @@
 <tr>
   <td>
     <div>
+      <%= label_tag(:run_character, "Run only:") %>
+      <%= text_field_tag(:run_character) %>
       <%= submit_to_remote('import',
                            'Start Import',
                            :url => { :action => 'import' },
                            :disabled => session[:apci_session].nil?,
-                           :with => "'url=#{@document.links['self']}&worksheet=#{@worksheet_uri}&stitle=#{@document.title}&wtitle=#{@wtitle}&sheeturi=#{@sheeturi}'",
+                           :with => "'url=#{@document.links['self']}&worksheet=#{@worksheet_uri}&stitle=#{@document.title}&' + Form.Element.serialize('run_character') + '&wtitle=#{@wtitle}&sheeturi=#{@sheeturi}'",
                            :update => 'doc_preview',
                            :html => { :disabled => session[:apci_session].nil? },
                            :loading=> "setLoadingMsg('doc_preview', 'processing import...')")
