@@ -161,7 +161,7 @@ class DoclistController < ApplicationController
       @apci_session.logger = logger
       cells_xml = @client.get(@worksheet_uri).to_xml
       worksheet = worksheet_feed_to_a(cells_xml)
-      @apci_session.import_sheet(worksheet, @wsheet)
+      @apci_session.import_sheet(worksheet, @wsheet, nil, nil, params[:run_character])
       @apci_session.logger = nil
       @apci_session.log(nil)
       rest_logger.close
