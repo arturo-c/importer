@@ -36,11 +36,13 @@
     <div>
       <%= label_tag(:run_character, "Run only:") %>
       <%= text_field_tag(:run_character) %>
+      <%= label_tag(:skip_emails, "Skip E-mails:") %>
+      <%= check_box_tag(:skip_emails) %>
       <%= submit_to_remote('import',
                            'Start Import',
                            :url => { :action => 'import' },
                            :disabled => session[:apci_session].nil?,
-                           :with => "'url=#{@document.links['self']}&worksheet=#{@worksheet_uri}&stitle=#{@document.title}&' + Form.Element.serialize('run_character') + '&wtitle=#{@wtitle}&sheeturi=#{@sheeturi}'",
+                           :with => "'url=#{@document.links['self']}&worksheet=#{@worksheet_uri}&' + Form.Element.serialize('skip_emails') + '&stitle=#{@document.title}&' + Form.Element.serialize('run_character') + '&wtitle=#{@wtitle}&sheeturi=#{@sheeturi}'",
                            :update => 'doc_preview',
                            :html => { :disabled => session[:apci_session].nil? },
                            :loading=> "setLoadingMsg('doc_preview', 'processing import...')")
