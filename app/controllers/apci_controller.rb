@@ -22,8 +22,8 @@ class ApciController < ApplicationController
   def login
     unless params[:user].nil? or params[:pass].nil?
       sess = ApcirClient.new(nil, params[:env])
-      login_response = sess.login(params[:user], params[:pass])
-      @message = 'Connected as ' + login_response['user']['name']
+      sess.add_headers({:Authorization => 'Basic ' + Base64.encode64(params[:user] + ':' + params[:pass])})
+      @message = 'Connected as ' + params[:user]
       @status = 'Logged in : Ready'
       session[:apci_session] = sess
       session[:apci_session_start] = Time.now
