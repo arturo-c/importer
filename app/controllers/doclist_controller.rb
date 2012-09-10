@@ -159,7 +159,20 @@ class DoclistController < ApplicationController
       # Extend our API class with import and interactive actions.
       @apci_session.extend ImportActions
       @apci_session.logger = logger
-      cells_xml = @client.get(@worksheet_uri).to_xml
+      choices = {}
+      spreadsheets = get_content('https://spreadsheets.google.com/feeds/spreadsheets/private/full')
+      spreadsheets.xpath('xmlns:feed/xmlns:entry').each do |spreadsheet|
+        spreadsheet_uri = spreadsheet.xpath("xmlns:content[@type='application/atom+xml;type=feed']").attribute('src')
+        choices.merge!({spreadsheet.xpath('xmlns:title').text => spreadsheet_uri})
+      end
+      worksheets = get_content(choices[@sheet])
+
+      w_choices = {}
+      worksheets.xpath('xmlns:feed/xmlns:entry').each do |worksheet|
+        cells_uri = worksheet.xpath("xmlns:link[@rel='http://schemas.google.com/spreadsheets/2006#cellsfeed']").attribute('href')
+        w_choices.merge!({worksheet.xpath('xmlns:title').text => cells_uri})
+      end
+      cells_xml = get_content(w_choices[@wsheet])
       worksheet = worksheet_feed_to_a(cells_xml)
       @apci_session.import_sheet(worksheet, @wsheet, nil, nil, params[:run_character], params[:skip_emails])
       @apci_session.logger = nil
@@ -314,13 +327,21 @@ private
   # Traverse worksheet xml feed looking for cells and save them into a 2d array.
   def worksheet_feed_to_a(xml)
     worksheet = []
-    xml.elements.each('entry/gs:cell') do | cell |
-      row = cell.attributes['row'].to_i - 1
-      col = cell.attributes['col'].to_i - 1
+    xml.xpath('xmlns:feed/xmlns:entry/gs:cell').each do |cell|
+      row = cell.attribute('row').content.to_i - 1
+      col = cell.attribute('col').content.to_i - 1
       worksheet[row] = [] if worksheet[row].nil?
       worksheet[row][col] = cell.text
     end
     worksheet
+  end
+
+  def get_content(href)
+    # TODO - Maintain SSL/HTTPS...
+    uri = Addressable::URI.parse(href)
+    Nokogiri::XML(@client.get(uri.to_s).body)
+  rescue
+    puts "Unable to retrieve spreadsheet: " + $!
   end
 
 end
