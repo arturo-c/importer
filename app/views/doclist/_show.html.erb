@@ -30,7 +30,7 @@
   </td>
 </tr>
 <% @sheeturi =  @document.links['http://schemas.google.com/spreadsheets/2006#worksheetsfeed'] %>
-<% unless @wtitle != 'Participant Information' %>
+<% if @wtitle == 'Participant Information' || @wtitle == 'Groups' %>
 <tr>
   <td>
     <div>

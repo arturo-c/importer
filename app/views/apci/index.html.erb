@@ -12,12 +12,17 @@
 <% if session[:apci_session].nil? -%>
   <% form_remote_tag(:update => 'doc_preview', :url => {:controller => 'apci', :action => 'login'}) do %>
     <%= label_tag(:env, "Environment:") %>
-    <%= select_tag :env, options_for_select(["www.import.dev.allplayers.com", "www.allplayers.com"]), {:multiple => false} %>
+    <%= select_tag :env, options_for_select(["www.import.dev.allplayers.com", "www.allplayers.com", "www.pdup.allplayers.com"]),
+      {:multiple => false, :onchange => 'document.getElementById("environment").value = document.getElementById("env").value;'} %>
     <%= label_tag(:user, "User:") %>
     <%= text_field_tag(:user) %>
     <%= label_tag(:pass, "Password:") %>
     <%= password_field_tag(:pass) %>
     <%= submit_tag 'Login' %>
+  <% end %>
+  <% form_remote_tag(:url => {:controller => 'apci', :action => 'login_oauth'}) do %>
+    <%= hidden_field_tag :environment, 'www.import.dev.allplayers.com' %>
+    <%= submit_tag 'Login with oauth' %>
   <% end %>
 <% else -%>
   <% form_remote_tag(:update => 'doc_preview', :url => {:action=> 'logout', :controller => 'apci'}) do -%>

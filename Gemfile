@@ -12,4 +12,5 @@ gem "rest-client", "1.6.7"
 gem "rspec", "2.9.0"
 gem "sqlite3", "1.3.5"
 gem "xml-simple", "1.1.1"
+gem "oauth", "0.4.6"
 

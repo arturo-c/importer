@@ -127,6 +127,7 @@ class DoclistController < ApplicationController
       @wsheet = params[:wtitle]
       @worksheet_uri = params[:worksheet]
       @apci_session = session[:apci_session]
+      @access_token = session[:access_token]
       path = Dir.pwd + '/import_logs'
       begin
         FileUtils.mkdir(path)
