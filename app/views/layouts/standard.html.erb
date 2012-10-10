@@ -26,6 +26,13 @@
                                 :update => 'doc_preview',
                                 :loading=> "setDocsListLoadingMsg('doc_preview', 'Checking AllPlayers.com connection...')")
       %></div><!-- session[:apci_session] -->
+      <% if apci_status == 'Connected' -%>
+        <div><%= link_to_remote('Logout of AllPlayers',
+                                  :url => {:action=> 'logout', :controller => 'apci'},
+                                  :update => 'doc_preview',
+                                  :loading=> "setDocsListLoadingMsg('doc_preview', 'Logging out of AllPlayers.com ...')")
+        %></div><!-- session[:apci_session] -->
+      <% end -%>
       </div>
       <div>
         <small><% api_link_txt = '<span class="google"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span> Docs' -%>
