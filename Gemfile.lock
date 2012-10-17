@@ -11,7 +11,7 @@ GEM
     activeresource (2.3.10)
       activesupport (= 2.3.10)
     activesupport (2.3.10)
-    addressable (2.2.6)
+    addressable (2.2.7)
     builder (3.0.0)
     ci_reporter (1.7.0)
       builder (>= 2.1.2)
@@ -48,7 +48,7 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport (= 2.3.10)
-  addressable (= 2.2.6)
+  addressable (= 2.2.7)
   ci_reporter (= 1.7.0)
   gdata (= 1.1.2)
   highline (= 1.6.11)
