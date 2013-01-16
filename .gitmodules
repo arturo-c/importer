@@ -1,3 +1,0 @@
-[submodule "lib/allplayers-ruby-client"]
-	path = lib/allplayers-ruby-client
-        url = git@github.com:AllPlayers/apci-ruby-client.git

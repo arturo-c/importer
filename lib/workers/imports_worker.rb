@@ -1,8 +1,7 @@
 # Include AllPlayers client directory.
 $:.unshift File.join(File.dirname(__FILE__),'../..','lib/allplayers-ruby-client/lib')
 
-require 'apcir_import_actions'
-require 'apci_rest'
+require 'allplayers'
 
 class ImportsWorker < BackgrounDRb::MetaWorker
   set_worker_name :imports_worker

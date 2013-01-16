@@ -14,7 +14,6 @@
 
 require 'apci_controller'
 require 'yaml'
-require 'gdoc_to_apci'
 
 class DoclistController < ApplicationController
   layout 'standard'
@@ -158,7 +157,7 @@ class DoclistController < ApplicationController
       @apci_session.log(rest_logger)
 
       # Extend our API class with import and interactive actions.
-      @apci_session.extend ImportActions
+      @apci_session.extend AllPlayersImports
       @apci_session.logger = logger
       choices = {}
       spreadsheets = get_content('https://spreadsheets.google.com/feeds/spreadsheets/private/full')
