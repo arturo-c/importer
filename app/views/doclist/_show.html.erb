@@ -38,6 +38,14 @@
       <%= text_field_tag(:run_character) %>
       <%= label_tag(:skip_emails, "Skip E-mails:") %>
       <%= check_box_tag(:skip_emails) %>
+      <%= form_tag ({:action => 'uploadFile', :controller => 'upload'},
+          :multipart => true) %>
+        Select File :
+        <%= file_field 'upload', 'datafile' %>
+
+
+        <%= submit_tag "Upload" %>
+      <%= %>
       <%= submit_to_remote('import',
                            'Start Import',
                            :url => { :action => 'import' },
